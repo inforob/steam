@@ -1,0 +1,39 @@
+{% macro print_latest(post) %}
+<div class="nk-news-box-item nk-news-box-item-active">
+    <div class="nk-news-box-item-img">
+        <img src="{{ asset('uploads/posts/' ~ post.image ) }}" alt="{{ post.title }}">
+    </div>
+    <img src="{{ asset('uploads/posts/' ~ post.image ) }}" alt="{{ post.title }}" class="nk-news-box-item-full-img">
+    <h3 class="nk-news-box-item-title">{{ post.title }}</h3>
+    <span class="nk-news-box-item-categories">
+        <span class="bg-main-4">{{ post.topic.name }}</span>
+    </span>
+    <div class="nk-news-box-item-text">
+        <p>{{ post.text|raw }}</p>
+    </div>
+    <a href="http://google.es" class="nk-news-box-item-url">Read More</a>
+    <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> {{ post.createdAt|date }} </div>
+</div>
+{% endmacro %}
+
+{% macro print_posts(post) %}
+<div class="col-md-6 col-lg-3">
+    <div class="nk-blog-post">
+        <a href="" class="nk-post-img">
+            <img src="{{ asset('uploads/posts/' ~ post.image ) }}" alt="He made his passenger captain of one">
+            <span class="nk-post-comments-count">1</span>
+            <span class="nk-post-categories">
+                <span class="bg-main-5">{{ post.topic.name }}</span>
+            </span>
+        </a>
+        <div class="nk-gap"></div>
+        <h2 class="nk-post-title h4"><a href="">{{ post.title }}</a></h2>
+        <div class="nk-post-text">
+            <p>{{ post.text|remove_html_entities|slice(0,150) }} ... </p>
+        </div>
+        <div class="nk-gap"></div>
+        <a href="" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Read More</a>
+        <div class="nk-post-date float-right"><span class="fa fa-calendar"></span> {{ post.createdAt|date }}</div>
+    </div>
+</div>
+{% endmacro %}
