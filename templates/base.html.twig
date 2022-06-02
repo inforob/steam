@@ -60,7 +60,33 @@
 </div>
 <div class="nk-gap-4"></div>
 <!-- START: Footer -->
-{% include 'footer.html.twig' %}
+<footer class="nk-footer">
+    <div class="container">
+        <div class="nk-gap-3"></div>
+        <div class="row vertical-gap">
+            <div class="col-md-6">
+                <div class="nk-widget">
+                    <h4 class="nk-widget-title"><span class="text-main-1">Contact</span> With Us</h4>
+                    <div class="nk-widget-content">
+                        {% include 'contact-form.html.twig' %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="nk-widget">
+                    <h4 class="nk-widget-title"><span class="text-main-1">Latest</span> Posts</h4>
+                    <div class="nk-widget-content">
+                        <div class="row vertical-gap sm-gap">
+                            {% block latest_posts %}{% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nk-gap-3"></div>
+    </div>
+    {% include 'copy-rights.html.twig' %}
+</footer>
 <!-- END: Footer -->
 
 <!-- START: Page Background -->
