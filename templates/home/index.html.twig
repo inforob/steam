@@ -128,7 +128,11 @@
                         <div role="tabpanel" class="tab-pane fade show {% if loop.index == 1 %}active{% endif %}" id="{{ topic.slug }}">
                             <div class="nk-gap"></div>
                             <!-- START: Action Tab -->
-                            {{ topic.name }}
+                            {% for post in posts %}
+                                {% if post.topic.slug == topic.slug %}
+                                    {{ p.tab(post) }}
+                                {% endif %}
+                            {% endfor %}
                             <!-- END: Action Tab -->
                         </div>
                     {% endfor %}

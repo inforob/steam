@@ -64,18 +64,18 @@
     <nav class="nk-navbar nk-navbar-top nk-navbar-sticky nk-navbar-autohide">
         <div class="container">
             <div class="nk-nav-table">
-                <a href="index.html" class="nk-nav-logo">
-                    <img src="assets/images/logo.svg" alt="GoodGames" width="199">
+                <a href="{{ path('app_home') }}" class="nk-nav-logo">
+                    <img src="{{ asset('template/assets/images/logo.svg') }}" alt="logo" width="199">
                 </a>
                 <ul class="nk-nav nk-nav-right d-none d-lg-table-cell" data-nav-mobile="#nk-nav-mobile">
                     <li>
-                        <a href="elements.html"> Home </a>
+                        <a href="{{ path('app_home') }}"> Home </a>
                     </li>
                     <li>
-                        <a href="elements.html"> Catalog </a>
+                        <a href=""> Catalog </a>
                     </li>
                     <li>
-                        <a href="elements.html"> Cart </a>
+                        <a href=""> Cart </a>
                     </li>
                 </ul>
                 <ul class="nk-nav nk-nav-right nk-nav-icons">
