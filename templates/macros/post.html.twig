@@ -23,11 +23,11 @@
             <img src="{{ asset('uploads/posts/' ~ post.image ) }}" alt="{{ post.title }}">
             <span class="nk-post-comments-count">1</span>
             <span class="nk-post-categories">
-                <span class="bg-main-5">{{ post.topic.name }}</span>
+                <span class="bg-main-{{ post.topic.color }}">{{ post.topic.name }}</span>
             </span>
         </a>
         <div class="nk-gap"></div>
-        <h2 class="nk-post-title h4"><a href="">{{ post.title }}</a></h2>
+        <h2 class="nk-post-title h4"><a href="{{ path('app_post',{ 'slug': post.slug }) }}">{{ post.title }}</a></h2>
         <div class="nk-post-text">
             <p>{{ post.text|remove_html_entities|slice(0,150) }} ... </p>
         </div>
