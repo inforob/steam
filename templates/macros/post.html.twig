@@ -11,7 +11,7 @@
     <div class="nk-news-box-item-text">
         <p>{{ post.text|raw }}</p>
     </div>
-    <a href="http://google.es" class="nk-news-box-item-url">Read More</a>
+    <a href="{{ path('app_post',{ 'slug': post.slug }) }}" class="nk-news-box-item-url">Read More</a>
     <div class="nk-news-box-item-date"><span class="fa fa-calendar"></span> {{ post.createdAt|date }} </div>
 </div>
 {% endmacro %}
@@ -19,8 +19,8 @@
 {% macro print_posts(post) %}
 <div class="col-md-6 col-lg-3">
     <div class="nk-blog-post">
-        <a href="" class="nk-post-img">
-            <img src="{{ asset('uploads/posts/' ~ post.image ) }}" alt="He made his passenger captain of one">
+        <a href="{{ path('app_post',{ 'slug': post.slug }) }}" class="nk-post-img">
+            <img src="{{ asset('uploads/posts/' ~ post.image ) }}" alt="{{ post.title }}">
             <span class="nk-post-comments-count">1</span>
             <span class="nk-post-categories">
                 <span class="bg-main-5">{{ post.topic.name }}</span>
@@ -32,7 +32,7 @@
             <p>{{ post.text|remove_html_entities|slice(0,150) }} ... </p>
         </div>
         <div class="nk-gap"></div>
-        <a href="" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Read More</a>
+        <a href="{{ path('app_post',{ 'slug': post.slug }) }}" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Read More</a>
         <div class="nk-post-date float-right"><span class="fa fa-calendar"></span> {{ post.createdAt|date }}</div>
     </div>
 </div>
@@ -42,12 +42,12 @@
     <div class="col-md-6">
         <!-- START: Post -->
         <div class="nk-blog-post">
-            <a href="" class="nk-post-img">
+            <a href="{{ path('app_post',{ 'slug': post.slug }) }}" class="nk-post-img">
                 <img src="{{ asset('uploads/posts/' ~ post.image ) }}" alt="{{ post.title }}">
                 <span class="nk-post-comments-count">1</span>
             </a>
             <div class="nk-gap"></div>
-            <h2 class="nk-post-title h4"><a href="">{{ post.title }}</a></h2>
+            <h2 class="nk-post-title h4"><a href="{{ path('app_post',{ 'slug': post.slug }) }}">{{ post.title }}</a></h2>
             <div class="nk-post-by">
                 <img src="{{ asset('uploads/posts/' ~ post.image ) }}" alt="{{ post.title }}" class="rounded-circle" width="35"> by <a href="https://nkdev.info">Wolfenstein</a> {{ post.createdAt|date }}
             </div>
@@ -56,7 +56,7 @@
                 <p>{{ post.text|remove_html_entities|slice(0,255) }} ...</p>
             </div>
             <div class="nk-gap"></div>
-            <a href="" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Read More</a>
+            <a href="{{ path('app_post',{ 'slug': post.slug }) }}" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Read More</a>
         </div>
         <!-- END: Post -->
     </div>
@@ -66,7 +66,7 @@
     <div class="nk-blog-post">
         <div class="row vertical-gap">
             <div class="col-lg-3 col-md-5">
-                <a href="" class="nk-post-img">
+                <a href="{{ path('app_post',{ 'slug': post.slug }) }}" class="nk-post-img">
                     <img src="{{ asset('uploads/posts/' ~ post.image ) }}" alt="{{ post.title }}">
                     <span class="nk-post-categories">
                         <span class="bg-main-1">{{ post.topic.name }}</span>
@@ -74,7 +74,7 @@
                 </a>
             </div>
             <div class="col-lg-9 col-md-7">
-                <h2 class="nk-post-title h4"><a href="">{{ post.title }}</a></h2>
+                <h2 class="nk-post-title h4"><a href="{{ path('app_post',{ 'slug': post.slug }) }}">{{ post.title }}</a></h2>
                 <div class="nk-post-text">
                     <p>{{ post.text|remove_html_entities|slice(0,100) }} ...</p>
                 </div>
@@ -86,10 +86,10 @@
 {% macro latest_posts_footer(post) %}
 <div class="col-lg-6">
     <div class="nk-widget-post-2">
-        <a href="" class="nk-post-image">
+        <a href="{{ path('app_post',{ 'slug': post.slug }) }}" class="nk-post-image">
             <img src="{{ asset('uploads/posts/' ~ post.image ) }}" alt="">
         </a>
-        <div class="nk-post-title"><a href="">{{ post.title }}</a></div>
+        <div class="nk-post-title"><a href="{{ path('app_post',{ 'slug': post.slug }) }}">{{ post.title }}</a></div>
         <div class="nk-post-date">
             <span class="fa fa-calendar"></span> {{ post.createdAt|date }} <span class="fa fa-comments"></span> <a href="#">4</a>
         </div>
