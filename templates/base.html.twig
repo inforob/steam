@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title%}{% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="_nK">
+    <link rel="icon" type="image/png" href="{{ asset('template/images/favicon.png') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- START: Styles -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{{ asset('template/assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+    <!-- FontAwesome -->
+    <script defer src="{{ asset('template/assets/vendor/fontawesome-free/js/all.js') }}"></script>
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="{{ asset('template/assets//vendor/ionicons/css/ionicons.min.css') }}">
+    <!-- GoodGames -->
+    <link rel="stylesheet" href="{{ asset('template/assets/css/goodgames.min.css') }}">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="{{ asset('template/assets/css/custom.css') }}">
+    <!-- END: Styles -->
+    <!-- jQuery -->
+    <script src="{{ asset('template/assets/vendor/jquery/dist/jquery.min.js') }}"></script>
+</head>
+
+<body>
+
+{% include 'header.html.twig' %}
+
+<div id="nk-nav-mobile" class="nk-navbar nk-navbar-side nk-navbar-right-side nk-navbar-overlay-content d-lg-none">
+    <div class="nano">
+        <div class="nano-content">
+            <a href="index.html" class="nk-nav-logo">
+                <img src="assets/images/logo.svg" alt="" width="120">
+            </a>
+            <div class="nk-navbar-mobile-content">
+                <ul class="nk-nav">
+                    <!-- Here will be inserted menu from [data-mobile-menu="#nk-nav-mobile"] -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Navbar Mobile -->
+<div class="nk-main">
+    <div class="nk-gap-2"></div>
+        <div class="container">
+
+            {% block categories %}{% endblock %}
+
+            {% block last_news %}{% endblock %}
+
+            {% block main %}{% endblock %}
+
+        </div>
+</div>
+<div class="nk-gap-4"></div>
+<!-- START: Footer -->
+{% include 'footer.html.twig' %}
+<!-- END: Footer -->
+
+<!-- START: Page Background -->
+<img class="nk-page-background-top" src="{{ asset('template/assets/images/bg-top.png') }}" alt="">
+<img class="nk-page-background-bottom" src="{{ asset('template/assets/images/bg-bottom.png') }}" alt="">
+<!-- END: Page Background -->
+<!-- START: Search Modal -->
+{% include 'search-modal.html.twig' %}
+<!-- END: Search Modal -->
+<!-- START: Login Modal -->
+{% include 'login-modal.html.twig' %}
+<!-- END: Login Modal -->
+<!-- START: Scripts -->
+{% include 'scripts.html.twig' %}
+<!-- END: Scripts -->
+</body>
+</html>

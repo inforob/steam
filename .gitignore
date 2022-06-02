@@ -8,3 +8,16 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+###< uploads ###
+public/uploads/games/*
+public/uploads/posts/*
+###< uploads ###
+
+###< uploads ###
+.idea/
+###< uploads ###
+
+###< Makefile ###
+Makefile
+###< Makefile ###
