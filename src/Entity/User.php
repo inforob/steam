@@ -2,19 +2,24 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use App\Repository\UserRepository;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity("email")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    public const ACTIVATE = 1;
+    public const ACTIVATED = 1;
+
+    public const NOT_ACTIVATED = 1;
 
     /**
      * @ORM\Id
@@ -48,16 +53,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="boolean")
      */
-    private $activate;
+    private bool $activate;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $token;
+    private ?string $token;
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->setActivate(self::NOT_ACTIVATED);
+        $this->setToken(md5(uniqid(rand(), true)));
+        $this->setRoles(['ROLE_USER']);
     }
 
     public function getId(): string
@@ -196,7 +204,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->token;
     }
 
-    public function setToken(string $token): self
+    public function setToken(?string $token): self
     {
         $this->token = $token;
 

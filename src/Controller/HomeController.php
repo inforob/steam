@@ -43,14 +43,14 @@ class HomeController extends AbstractController
         Post $post,
         Request $request): Response
     {
-        if( null == $this->getUser()) {
-            throw new Exception('You dont have any access here. You must logged first.');
-        }
-
+        
         $comment = new Comment();
         $commentForm = $this->createForm(CommentType::class, $comment);
         $commentForm->handleRequest($request);
         if($commentForm->isSubmitted() && $commentForm->isValid()) {
+            if( null == $this->getUser()) {
+                throw new Exception('You dont have any access here. You must logged first.');
+            }
             /** @var User $user */
             $user=$this->getUser();
             $comment->setUser($user);

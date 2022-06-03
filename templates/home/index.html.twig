@@ -93,6 +93,9 @@
 {% endblock %}
 
 {% block main %}
+     {% if error is defined and error is not empty %}
+         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+     {% endif %}
     <div class="nk-gap-2"></div>
     <div class="row vertical-gap">
         <div class="col-lg-8">

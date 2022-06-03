@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @Route("/register", name="register")
@@ -40,16 +41,25 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($user);
-            $this->entityManager->flush();
 
-            $this->dispatcher->dispatch(new UserEvent($user),UserEvent::REGISTER_ACTION);
-            $this->addFlash(
-                'success',
-                'Registered user ' . $user->getUserIdentifier()
-            );
+            try {
+                $this->entityManager->persist($user);
+                $this->entityManager->flush();
 
-            return $this->redirectToRoute('register_user_new', [], Response::HTTP_SEE_OTHER);
+                $this->dispatcher->dispatch(new UserEvent($user),UserEvent::REGISTER_ACTION);
+                $this->addFlash(
+                    'success',
+                    'Registered user ' . $user->getUserIdentifier()
+                );
+
+                return $this->redirectToRoute('register_user_new', [], Response::HTTP_SEE_OTHER);
+            } catch (Exception $exception) {
+                $this->addFlash(
+                    'fail',
+                    $exception->getMessage()
+                );
+            }
+
         }
 
         return $this->renderForm('/user/registration/index.html.twig', [
@@ -60,20 +70,15 @@ class RegistrationController extends AbstractController
 
     /**
      * @Route("/token/{token}", name="_user_activate", methods={"GET"})
+     * @ParamConverter("user", class="App\Entity\User")
      * @throws Exception
      */
-    public function activate(string $token,UserRepository $userRepository) :RedirectResponse
+    public function activate(User $user, UserRepository $userRepository) :RedirectResponse
     {
-        $user = $userRepository->findOneBy(['token'=>$token]);
-        if(null == $token){
-            throw new Exception("this token has been expired");
-        }
-
-        $user->setActivate(User::ACTIVATE);
+        $user->setActivate(User::ACTIVATED);
         $user->setToken(null);
 
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
+        $userRepository->add($user,true);
 
         $this->addFlash(
             'success',
