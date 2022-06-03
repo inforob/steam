@@ -39,9 +39,15 @@ class Topic
      */
     private Collection $posts;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private int $color;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
+        $this->setColor(rand(1,6));
     }
 
     public function getId(): string
@@ -99,6 +105,18 @@ class Topic
                 $post->setTopic(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getColor(): int
+    {
+        return $this->color;
+    }
+
+    public function setColor(int $color): self
+    {
+        $this->color = $color;
 
         return $this;
     }
