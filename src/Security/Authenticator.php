@@ -5,8 +5,10 @@ namespace App\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authenticator\AbstractLoginFormAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
@@ -23,9 +25,12 @@ class Authenticator extends AbstractLoginFormAuthenticator
 
     private UrlGeneratorInterface $urlGenerator;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    private FlashBagInterface $flashBag;
+
+    public function __construct(UrlGeneratorInterface $urlGenerator, FlashBagInterface $flashBag)
     {
         $this->urlGenerator = $urlGenerator;
+        $this->flashBag = $flashBag;
     }
 
     public function authenticate(Request $request): Passport
@@ -49,6 +54,20 @@ class Authenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
+        $this->flashBag->set(
+            'success',
+            'login success perfectly'
+        );
+
+        return new RedirectResponse($this->urlGenerator->generate('app_home'));
+    }
+
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
+    {
+        $this->flashBag->set(
+            'fail',
+            $exception->getMessage()
+        );
         return new RedirectResponse($this->urlGenerator->generate('app_home'));
     }
 
