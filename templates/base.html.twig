@@ -47,8 +47,17 @@
 </div>
 <!-- END: Navbar Mobile -->
 <div class="nk-main">
+
     <div class="nk-gap-2"></div>
         <div class="container">
+
+            {% for flash_message in app.session.flashbag.get('success') %}
+                {% include 'notices/ok.html.twig' with { message: flash_message }%}
+            {% endfor %}
+
+            {% for flash_message in app.session.flashbag.get('fail') %}
+                {% include 'notices/ko.html.twig' with { message: flash_message }%}
+            {% endfor %}
 
             {% block categories %}{% endblock %}
 
