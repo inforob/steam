@@ -75,12 +75,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private ?Address $address;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="user", orphanRemoval=true)
+     */
+    private Collection $message;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->setActivate(self::NOT_ACTIVATED);
         $this->setToken(md5(uniqid(rand(), true)));
         $this->setRoles(['ROLE_USER']);
+        $this->message = new ArrayCollection();
     }
 
     public function getId(): string
@@ -258,6 +264,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAddress(?Address $address): self
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getMessage(): Collection
+    {
+        return $this->message;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->message->contains($message)) {
+            $this->message[] = $message;
+            $message->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->message->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getUser() === $this) {
+                $message->setUser(null);
+            }
+        }
 
         return $this;
     }
