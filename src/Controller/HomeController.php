@@ -105,7 +105,7 @@ class HomeController extends AbstractController
     public function catalog(Request $request,PostRepository $postRepository) : Response
     {
         return $this->render('catalog/index.html.twig',[
-            'posts' => $postRepository->findBy(['published'=>Post::PUBLISHED]),
+            'games' => [1,2,3]
         ]);
     }
 }
