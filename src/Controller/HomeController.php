@@ -98,4 +98,14 @@ class HomeController extends AbstractController
             'comments'=> $commentRepository->findBy(['published'=>Comment::COMMENT_PUBLISHED, 'post' => $post->getId()])
         ]);
     }
+
+    /**
+     * @Route("/catalog", name="_catalog" , methods={"GET"})
+     */
+    public function catalog(Request $request,PostRepository $postRepository) : Response
+    {
+        return $this->render('catalog/index.html.twig',[
+            'posts' => $postRepository->findBy(['published'=>Post::PUBLISHED]),
+        ]);
+    }
 }
