@@ -13,6 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Comment
 {
+    public const COMMENT_PUBLISHED = 1;
+    public const COMMENT_NOT_PUBLISHED = 0;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
@@ -41,6 +44,22 @@ class Comment
      * @ORM\JoinColumn(nullable=false)
      */
     private User $user;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $published;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Post::class, inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private Post $post;
+
+    public function __construct()
+    {
+        $this->setPublished(self::COMMENT_NOT_PUBLISHED);
+    }
 
     public function getId(): string
     {
@@ -98,6 +117,30 @@ class Comment
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function isPublished(): ?bool
+    {
+        return $this->published;
+    }
+
+    public function setPublished(bool $published): self
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    public function getPost(): Post
+    {
+        return $this->post;
+    }
+
+    public function setPost(Post $post): self
+    {
+        $this->post = $post;
 
         return $this;
     }

@@ -16,11 +16,24 @@
                             <span class="fa fa-search"></span>
                         </a>
                     </li>
+                    {% if not app.user %}
                     <li>
                         <a href="#" data-toggle="modal" data-target="#modalLogin">
                             <span class="fa fa-user"></span>
                         </a>
                     </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ path('app_profile') }}">
+                                <span class="fa fa-user-plus"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_logout') }}">
+                                <span class="fa fa-sign-out-alt"></span>
+                            </a>
+                        </li>
+                    {% endif %}
                     <li>
                         <span class="nk-cart-toggle">
                             <span class="fa fa-shopping-cart"></span>

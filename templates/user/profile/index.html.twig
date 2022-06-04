@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="nk-gap-1"></div>
+    <button class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-warning">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+    <div class="nk-gap-2"></div>
+    <h3>Address</h3>
+    {{ form_start(formAddress) }}
+    {{ form_widget(formAddress) }}
+    <div class="nk-gap-1"></div>
+    <button class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-warning">{{ button_label|default('Save') }}</button>
+    {{ form_end(formAddress) }}
+{% endblock %}

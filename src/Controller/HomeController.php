@@ -54,6 +54,7 @@ class HomeController extends AbstractController
             /** @var User $user */
             $user=$this->getUser();
             $comment->setUser($user);
+            $comment->setPost($post);
             $commentRepository->add($comment,true);
             return $this->redirectToRoute('app_post',['slug'=>$post->getSlug()]);
         }
@@ -62,7 +63,7 @@ class HomeController extends AbstractController
             'posts' => $postRepository->findBy(['published'=>Post::PUBLISHED]),
             'post' => $post,
             'commentForm' => $commentForm->createView(),
-            'comments'=> $commentRepository->findAll()
+            'comments'=> $commentRepository->findBy(['published'=>Comment::COMMENT_PUBLISHED, 'post' => $post->getId()])
         ]);
     }
 }

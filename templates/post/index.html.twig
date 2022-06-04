@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% import 'macros/post.html.twig' as p %}
-
+{% import 'macros/comment.html.twig' as c %}
 {% block main %}
   <div class="nk-main">
     <!-- START: Breadcrumbs -->
@@ -38,9 +38,9 @@
               <h3 class="nk-decorated-h-2"><span><span class="text-main-1">{{ comments|length }}</span> Comments</span></h3>
               <div class="nk-gap"></div>
               <div class="nk-comments">
-                  <!-- START: Comment -->
-
-                  <!-- END: Comment -->
+                {% for comment in comments %}
+                    {{ c.print_comment(comment) }}
+                {% endfor %}
               </div>
             {% endif %}
             <!-- START: Reply -->
