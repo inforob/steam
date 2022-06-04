@@ -35,7 +35,7 @@ class HomeController extends AbstractController
         MessageRepository $messageRepository
     ): Response
     {
-        $contactForm = $this->createForm(MessageType::class, new Comment());
+        $contactForm = $this->createForm(MessageType::class, new Message());
         $contactForm->handleRequest($request);
 
         if($contactForm->isSubmitted() && $contactForm->isValid())
@@ -44,22 +44,23 @@ class HomeController extends AbstractController
             $user = $this->getUser();
             /** @var Message $message */
             $message = $contactForm->getData();
-            if( null === $message->getEmail()){
+            if( null != $user){
                 $message->setEmail($user->getEmail());
             }
 
             $this->addFlash(
                 'success',
-                'comment added succesfully'
+                'message added succesfully'
             );
             $messageRepository->add($message,true);
 
-            return new RedirectResponse($this->generateUrl('app_home').'#contactForm');
+            return new RedirectResponse($this->generateUrl('app_home'));
         }
 
         return $this->render('home/index.html.twig',[
             'posts' => $postRepository->findBy(['published'=>Post::PUBLISHED]),
-            'topics' => $topicRepository->findAll()
+            'topics' => $topicRepository->findAll(),
+            'formContact' => $contactForm->createView()
         ]);
     }
 

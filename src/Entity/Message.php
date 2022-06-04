@@ -35,7 +35,7 @@ class Message
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="message")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private ?User $user;
 
