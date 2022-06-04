@@ -3,14 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\Message;
 use App\Entity\Post;
 use App\Entity\User;
 use App\Form\CommentType;
+use App\Form\MessageType;
 use App\Repository\CommentRepository;
+use App\Repository\MessageRepository;
 use App\Repository\PostRepository;
 use App\Repository\TopicRepository;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,11 +28,39 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="_home")
      */
-    public function index(PostRepository $postRepository, TopicRepository $topicRepository): Response
+    public function index(
+        Request $request,
+        PostRepository $postRepository,
+        TopicRepository $topicRepository,
+        MessageRepository $messageRepository
+    ): Response
     {
+        $contactForm = $this->createForm(MessageType::class, new Message());
+        $contactForm->handleRequest($request);
+
+        if($contactForm->isSubmitted() && $contactForm->isValid())
+        {
+            /** @var User $user */
+            $user = $this->getUser();
+            /** @var Message $message */
+            $message = $contactForm->getData();
+            if( null != $user){
+                $message->setEmail($user->getEmail());
+            }
+
+            $this->addFlash(
+                'success',
+                'message added succesfully'
+            );
+            $messageRepository->add($message,true);
+
+            return new RedirectResponse($this->generateUrl('app_home'));
+        }
+
         return $this->render('home/index.html.twig',[
             'posts' => $postRepository->findBy(['published'=>Post::PUBLISHED]),
-            'topics' => $topicRepository->findAll()
+            'topics' => $topicRepository->findAll(),
+            'formContact' => $contactForm->createView()
         ]);
     }
 

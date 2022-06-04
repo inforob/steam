@@ -1,14 +1,17 @@
-<form action="" class="nk-form nk-form-ajax">
-    <div class="row vertical-gap sm-gap">
+{{ form_start(formContact, {'class':'nk-form'}) }}
+    <div class="row vertical-gap sm-gap" id="contactForm">
         <div class="col-md-6">
-            <input type="email" class="form-control required" name="email" placeholder="Email *">
+            {{ form_widget(formContact.email, {'attr': {'class': 'form-control required','placeholder':"Email *"}}) }}
+            {{ form_errors(formContact.email) }}
         </div>
         <div class="col-md-6">
-            <input type="text" class="form-control required" name="name" placeholder="Name *">
+            {{ form_widget(formContact.name, {'attr': {'class': 'form-control required','placeholder':"Name"}}) }}
+            {{ form_errors(formContact.name) }}
         </div>
     </div>
     <div class="nk-gap"></div>
-    <textarea class="form-control required" name="message" rows="5" placeholder="Message *"></textarea>
+    {{ form_widget(formContact.text, {'attr': {'class': 'form-control required'}}) }}
+    {{ form_errors(formContact.text) }}
     <div class="nk-gap-1"></div>
     <button class="nk-btn nk-btn-rounded nk-btn-color-white">
         <span>Send</span>
@@ -16,4 +19,4 @@
     </button>
     <div class="nk-form-response-success"></div>
     <div class="nk-form-response-error"></div>
-</form>
+{{ form_end(formContact) }}

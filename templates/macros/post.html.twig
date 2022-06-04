@@ -21,7 +21,7 @@
     <div class="nk-blog-post">
         <a href="{{ path('app_post',{ 'slug': post.slug }) }}" class="nk-post-img">
             <img src="{{ asset('uploads/posts/' ~ post.image ) }}" alt="{{ post.title }}">
-            <span class="nk-post-comments-count">1</span>
+            <span class="nk-post-comments-count">{{ post.comments|length }}</span>
             <span class="nk-post-categories">
                 <span class="bg-main-{{ post.topic.color }}">{{ post.topic.name }}</span>
             </span>
@@ -44,7 +44,7 @@
         <div class="nk-blog-post">
             <a href="{{ path('app_post',{ 'slug': post.slug }) }}" class="nk-post-img">
                 <img src="{{ asset('uploads/posts/' ~ post.image ) }}" alt="{{ post.title }}">
-                <span class="nk-post-comments-count">1</span>
+                <span class="nk-post-comments-count">{{ post.comments|length }}</span>
             </a>
             <div class="nk-gap"></div>
             <h2 class="nk-post-title h4"><a href="{{ path('app_post',{ 'slug': post.slug }) }}">{{ post.title }}</a></h2>
@@ -91,7 +91,7 @@
         </a>
         <div class="nk-post-title"><a href="{{ path('app_post',{ 'slug': post.slug }) }}">{{ post.title }}</a></div>
         <div class="nk-post-date">
-            <span class="fa fa-calendar"></span> {{ post.createdAt|date }} <span class="fa fa-comments"></span> <a href="#">4</a>
+            <span class="fa fa-calendar"></span> {{ post.createdAt|date }} <span class="fa fa-comments"></span> <a href="#">{{ post.comments|length }}</a>
         </div>
     </div>
 </div>
