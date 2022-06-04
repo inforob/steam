@@ -15,6 +15,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Game
 {
+    public const PUBLISHED = 1;
+    public const NOT_PUBLISHED = 0;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
@@ -87,6 +90,7 @@ class Game
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
+        $this->setRating(100);
     }
 
     public function getId(): string

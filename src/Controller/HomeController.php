@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\Game;
 use App\Entity\Message;
 use App\Entity\Post;
 use App\Entity\User;
 use App\Form\CommentType;
 use App\Form\MessageType;
 use App\Repository\CommentRepository;
+use App\Repository\GameRepository;
 use App\Repository\MessageRepository;
 use App\Repository\PostRepository;
 use App\Repository\TopicRepository;
@@ -102,10 +104,10 @@ class HomeController extends AbstractController
     /**
      * @Route("/catalog", name="_catalog" , methods={"GET"})
      */
-    public function catalog(Request $request,PostRepository $postRepository) : Response
+    public function catalog(Request $request,GameRepository $gameRepository) : Response
     {
         return $this->render('catalog/index.html.twig',[
-            'games' => [1,2,3]
+            'games' => $gameRepository->findBy(['published'=>Game::PUBLISHED])
         ]);
     }
 }
