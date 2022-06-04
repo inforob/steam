@@ -7,35 +7,29 @@
                 </button>
                 <h4 class="mb-0"><span class="text-main-1">Sign</span> In</h4>
                 <div class="nk-gap-1"></div>
-                <form action="#" class="nk-form text-white">
+                <form action="{{ path('app_login') }}" class="nk-form text-white" method="POST">
                     <div class="row vertical-gap">
-                        <div class="col-md-6"> Use email and password: <div class="nk-gap"></div>
+                        <div class="col-md-12"> Use email and password: <div class="nk-gap"></div>
                             <input type="email" value="" name="email" class=" form-control" placeholder="Email">
                             <div class="nk-gap"></div>
                             <input type="password" value="" name="password" class="required form-control" placeholder="Password">
-                        </div>
-                        <div class="col-md-6"> Or social account: <div class="nk-gap"></div>
-                            <ul class="nk-social-links-2">
-                                <li><a class="nk-social-facebook" href="#"><span class="fab fa-facebook"></span></a></li>
-                                <li><a class="nk-social-google-plus" href="#"><span class="fab fa-google-plus"></span></a></li>
-                                <li><a class="nk-social-twitter" href="#"><span class="fab fa-twitter"></span></a></li>
-                            </ul>
                         </div>
                     </div>
                     <div class="nk-gap-1"></div>
                     <div class="row vertical-gap">
                         <div class="col-md-6">
-                            <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-block">Sign In</a>
+                            <button class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-block">Sign In</button>
                         </div>
                         <div class="col-md-6">
                             <div class="mnt-5">
                                 <small><a href="#">Forgot your password?</a></small>
                             </div>
                             <div class="mnt-5">
-                                <small><a href="#">Not a member? Sign up</a></small>
+                                <small><a href="{{ path('register_user_new') }}">Not a member? Sign up</a></small>
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 </form>
             </div>
         </div>

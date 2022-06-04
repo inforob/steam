@@ -1,0 +1,7 @@
+<h1>you will do reset the password !</h1>
+<p>
+    for reset your password, you should click in this link:
+    <a href="{{ domain ~ path('app_user_reset',{'token':user.token}) }}"> reset </a><br>
+    if your not view the link, you can put this link into the browser:
+    {{ domain ~ path('app_user_reset',{'token':user.token}) }}
+</p>

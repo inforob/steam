@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+<div class="nk-main">
+
+    {% for flash_message in app.session.flashbag.get('success') %}
+        {% include 'notices/ok.html.twig' with { message: flash_message }%}
+    {% endfor %}
+
+    {% for flash_message in app.session.flashbag.get('fail') %}
+        {% include 'notices/ko.html.twig' with { message: flash_message }%}
+    {% endfor %}
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="nk-gap-1"></div>
+    <button class="nk-btn nk-btn-rounded nk-btn-outline nk-btn-color-warning">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+
+</div>
+{% endblock %}

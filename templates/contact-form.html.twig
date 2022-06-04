@@ -1,0 +1,22 @@
+{{ form_start(formContact, {'class':'nk-form'}) }}
+    <div class="row vertical-gap sm-gap" id="contactForm">
+        <div class="col-md-6">
+            {{ form_widget(formContact.email, {'attr': {'class': 'form-control required','placeholder':"Email *"}}) }}
+            {{ form_errors(formContact.email) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(formContact.name, {'attr': {'class': 'form-control required','placeholder':"Name"}}) }}
+            {{ form_errors(formContact.name) }}
+        </div>
+    </div>
+    <div class="nk-gap"></div>
+    {{ form_widget(formContact.text, {'attr': {'class': 'form-control required'}}) }}
+    {{ form_errors(formContact.text) }}
+    <div class="nk-gap-1"></div>
+    <button class="nk-btn nk-btn-rounded nk-btn-color-white">
+        <span>Send</span>
+        <span class="icon"><i class="ion-paper-airplane"></i></span>
+    </button>
+    <div class="nk-form-response-success"></div>
+    <div class="nk-form-response-error"></div>
+{{ form_end(formContact) }}

@@ -1,0 +1,10 @@
+{{ form_start(commentForm, {'method': 'POST', 'attr': {'class':'nk-form'}}) }}
+    <div class="nk-gap-1"></div>
+{{ form_widget(commentForm.message, {'attr':{'class':'form-control required', 'placeholder':'Message'}}) }}
+    <div class="nk-gap-1"></div>
+    <div class="nk-form-response-success"></div>
+    <div class="nk-form-response-error">
+        {{ form_errors(commentForm.message) }}
+    </div>
+    <button class="nk-btn nk-btn-rounded nk-btn-color-main-1">Post Comment</button>
+{{ form_end(commentForm) }}

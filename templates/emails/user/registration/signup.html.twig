@@ -1,0 +1,7 @@
+<h1>your account has been created</h1>
+<p>
+    for activate your account, you should click in this link:
+    <a href="{{ domain ~ path('register_user_activate',{'token':user.token}) }}"> activate </a><br>
+    if your not view the link, you can put this link into the browser:
+    {{ domain ~ path('register_user_activate',{'token':user.token}) }}
+</p>
