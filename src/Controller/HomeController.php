@@ -115,4 +115,17 @@ class HomeController extends AbstractController
             'total' => $response['total'],
         ]);
     }
+
+    /**
+     * @Route("/game/{slug}", name="_game" , methods={"GET","POST"})
+     * @ParamConverter("game", class="App\Entity\Game")
+     * @throws Exception
+     */
+    public function game(Game $game) : Response
+    {
+        return $this->render('game/index.html.twig',[
+            'game' => $game,
+            'reviews' => [1,2,3,4]
+        ]);
+    }
 }

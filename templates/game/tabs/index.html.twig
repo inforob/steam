@@ -1,0 +1,34 @@
+<!-- START: Tabs -->
+<div class="nk-tabs">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" href="#tab-description" role="tab" data-toggle="tab">Description</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#tab-reviews" role="tab" data-toggle="tab">Reviews ({{ reviews|length }})</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        {% include 'game/tabs/details.html.twig' %}
+        <!-- START: Tab Reviews -->
+        <div role="tabpanel" class="tab-pane fade" id="tab-reviews">
+            <div class="nk-gap-2"></div>
+            <!-- START: Reply -->
+            <h3 class="h4">Add a Review</h3>
+            <div class="nk-reply">
+                {% include 'game/tabs/_reply.html.twig' %}
+            </div>
+            <!-- END: Reply -->
+            <div class="clearfix"></div>
+            <div class="nk-gap-2"></div>
+            <div class="nk-comments">
+                {% import 'macros/review.html.twig' as r %}
+                {% for review in reviews %}
+                    {{ r.print_review(review) }}
+                {% endfor %}
+            </div>
+        </div>
+        <!-- END: Tab Reviews -->
+    </div>
+</div>
+<!-- END: Tabs -->
