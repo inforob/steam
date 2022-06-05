@@ -149,7 +149,7 @@ class HomeController extends AbstractController
         return $this->render('game/index.html.twig',[
             'game' => $game,
             'reviewForm' => $reviewForm->createView(),
-            'reviews' => [1,2,3,4]
+            'reviews' => $reviewRepository->findAll()
         ]);
     }
 }
