@@ -1,0 +1,27 @@
+{% macro print_review(review) %}
+    <!-- START: Review -->
+    <div class="nk-comment">
+        <div class="nk-comment-meta">
+            <img src="{{ asset('template/assets/images/teammate-1.png') }}" alt="{{ review.user.name }}-review" class="rounded-circle" width="35"> by {{ review.user.username }} in {{ review.title }} <span class="nk-product-rating nk-review-rating">
+                <span class="nk-product-rating-front" style="width: {{ review.rating }}%;">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </span>
+                <span class="nk-product-rating-back">
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                </span>
+            </span>
+        </div>
+        <div class="nk-comment-text">
+            <p> {{ review.comment|raw }} </p>
+        </div>
+    </div>
+    <!-- END: Review -->
+{% endmacro %}
