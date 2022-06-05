@@ -20,6 +20,9 @@ class UserProfileType extends AbstractType
             ->add('lastname', TextType::class, [
                 'attr'=> ['autocomplete' => 'off', 'class' => 'form-control' ]
             ])
+            ->add('phone', TextType::class, [
+                'attr'=> ['autocomplete' => 'off', 'class' => 'form-control' ]
+            ])
 
         ;
     }

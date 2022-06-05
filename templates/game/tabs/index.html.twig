@@ -14,7 +14,7 @@
         <div role="tabpanel" class="tab-pane fade" id="tab-reviews">
             <div class="nk-gap-2"></div>
             {% if null == app.user %}
-                <span>You must <a href="{{ path('register_user_new') }}"><b>registered</b></a> for write a review for this game.</span>
+                <span>You must <a href="{{ path('app_login') }}"><b>sig in</b></a> for write a review for this game.</span>
             {% else %}
                 <!-- START: Reply -->
                 <h3 class="h4">Add a Review</h3>

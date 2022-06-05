@@ -36,14 +36,15 @@ class AppExtension extends AbstractExtension
         return strip_tags($value);
     }
 
-    public function totalsItemsCart(array $itemsCart) : string
+    public function totalsItemsCart(?array $itemsCart) : string
     {
         $sub_total = 0.00;
-
-        foreach ($itemsCart as $itemId => $item) {
-            /** @var Game $game */
-            $dish = $item['game'];
-            $sub_total += $dish->getPrice() * intval($item['quantity']);
+        if(!empty($itemsCart)){
+            foreach ($itemsCart as $itemId => $item) {
+                /** @var Game $game */
+                $dish = $item['game'];
+                $sub_total += $dish->getPrice() * intval($item['quantity']);
+            }
         }
 
         return number_format($sub_total,self::DECIMALS);

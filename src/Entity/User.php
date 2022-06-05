@@ -85,6 +85,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private Collection $reviews;
 
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $phone;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -330,6 +335,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $review->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
 
         return $this;
     }
