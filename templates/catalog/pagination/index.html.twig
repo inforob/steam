@@ -1,0 +1,38 @@
+<!-- START: Pagination -->
+{% set numPages = (total/recordsByPage)|round %}
+{% set back = (app.request.get('page') - 1 < 0) ? 1 : app.request.get('page') - 1 %}
+{% set next = (app.request.get('page') + 1 > numPages) ? numPages : app.request.get('page') + 1 %}
+
+<div class="nk-gap-3"></div>
+<div class="nk-pagination nk-pagination-center">
+    {% if numPages > 0 %}
+        <a href="{{ path('app_catalog', {'page': back}) }}" class="nk-pagination-prev">
+            <span class="ion-ios-arrow-back"></span>
+        </a>
+        <nav>
+            {% for i in 1..numPages %}
+                {% set route = path('app_catalog', {'page': i}) %}
+                {% if app.request.get('filter') is not null and app.request.get('filter') is defined %}
+                    {% for key,filter in app.request.get('filter') %}
+                        {% if loop.first %}
+                            {% set route = route ~ '?filter[' ~ key ~ ']=' ~ filter %}
+                        {% else %}
+                            {% set route = route ~ '&filter[' ~ key ~ ']=' ~ filter %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {% if ( loop.index < 6) %}
+                    <a href="{{ route }}" class="{% if(app.request.get('page') == i) %}nk-pagination-current{% endif %}">{{ i }}</a>
+                {% endif %}
+                {% if ( loop.last == i and i > 6 ) %}
+                    <span>...</span>
+                    <a href="{{ route }}" class="{% if(app.request.get('page') == i) %}nk-pagination-current{% endif %}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+        </nav>
+        <a href="{{ path('app_catalog', {'page': next}) }}" class="nk-pagination-next">
+            <span class="ion-ios-arrow-forward"></span>
+        </a>
+    {% endif %}
+</div>
+<!-- END: Pagination -->

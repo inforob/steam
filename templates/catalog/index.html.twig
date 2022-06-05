@@ -11,14 +11,52 @@
 
 {% block main %}
     <div class="nk-gap-2"></div>
-    {% include 'catalog/filter/index.html.twig' %}
     <!-- END: Products Filter -->
+    {% include 'catalog/filter/index.html.twig' %}
+
     <div class="nk-gap-2"></div>
     <!-- START: Products -->
+    {% if games is not empty %}
     <div class="row vertical-gap">
-        {% for game in games %}
-        {{ g.print_catalog_games(game) }}
-        {% endfor %}
+
+            {% for game in games %}
+            {{ g.print_catalog_games(game) }}
+            {% endfor %}
     </div>
+
+    {% include 'catalog/pagination/index.html.twig' with {
+        'currentPage':1,
+        'pages':total,
+        'recordsByPage':recordsByPage }
+    %}
+
+    {% else %}
+        <div>no records matches</div>
+    {% endif %}
     <!-- END: Products -->
+{% endblock %}
+{% block scripts %}
+    <script>
+        $(document).ready(function() {
+            $('form#frm-filter #apply-filter-platform').on("change",function(){sendForm();});
+            $('form#frm-filter #apply-filter-price').on("click",function(){sendForm();});
+            $('form#frm-filter #apply-filter-description').on("change",function(){sendForm();});
+        });
+
+        function sendForm() {
+            let form = $('form#frm-filter');
+            prepareForm(form);
+            form.submit();
+        }
+
+        function prepareForm(form)
+        {
+            $(form).find('input, textarea, select').each(function(x, field){
+                if(0 !== field.name.search("filter") || ('' === field.value)){
+                    $(field).prop('disabled',true);
+                    console.log(field);
+                }
+            });
+        }
+    </script>
 {% endblock %}

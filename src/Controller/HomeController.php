@@ -102,12 +102,17 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/catalog", name="_catalog" , methods={"GET"})
+     * @Route("/catalog/{page}", name="_catalog" , methods={"GET"})
      */
-    public function catalog(Request $request,GameRepository $gameRepository) : Response
+    public function catalog(Request $request,GameRepository $gameRepository, int $page = 1) : Response
     {
+        $filter = $request->query->get('filter') ?? null;
+        $response = $gameRepository->paginate($page,$filter);
+
         return $this->render('catalog/index.html.twig',[
-            'games' => $gameRepository->findBy(['published'=>Game::PUBLISHED])
+            'games' => $response['games'],
+            'recordsByPage' => $response['recordsByPage'],
+            'total' => $response['total'],
         ]);
     }
 }
