@@ -1,11 +1,11 @@
 {% macro print_best_selling(game) %}
     <div class="col-md-6">
         <div class="nk-product-cat">
-            <a class="nk-product-image" href="store-product.html">
+            <a class="nk-product-image" href="{{ path('app_game', { 'slug' : game.slug }) }}">
                 <img src="assets/images/product-11-xs.jpg" alt="She gave my mother">
             </a>
             <div class="nk-product-cont">
-                <h3 class="nk-product-title h5"><a href="store-product.html">She gave my mother</a></h3>
+                <h3 class="nk-product-title h5"><a href="{{ path('app_game', { 'slug' : game.slug }) }}">She gave my mother</a></h3>
                 <div class="nk-gap-1"></div>
                 <span class="nk-product-rating">
                     <span class="nk-product-rating-front" style="width: 60%;">
@@ -34,20 +34,20 @@
 
 {% macro print_recents_games(game) %}
 <div class="nk-widget-post">
-    <a href="blog-article.html" class="nk-post-image">
+    <a href="{{ path('app_game', { 'slug' : game.slug }) }}" class="nk-post-image">
         <img src="assets/images/post-1-sm.jpg" alt="">
     </a>
-    <h3 class="nk-post-title"><a href="blog-article.html">Smell magic in the air. Or maybe barbecue</a></h3>
+    <h3 class="nk-post-title"><a href="{{ path('app_game', { 'slug' : game.slug }) }}">Smell magic in the air. Or maybe barbecue</a></h3>
     <div class="nk-post-date"><span class="fa fa-calendar"></span> Sep 18, 2018</div>
 </div>
 {% endmacro %}
 
 {% macro print_most_popular(game) %}
 <div class="nk-widget-post">
-    <a href="store-product.html" class="nk-post-image">
+    <a href="{{ path('app_game', { 'slug' : game.slug }) }}" class="nk-post-image">
         <img src="assets/images/product-1-xs.jpg" alt="So saying he unbuckled">
     </a>
-    <h3 class="nk-post-title"><a href="store-product.html">So saying he unbuckled</a></h3>
+    <h3 class="nk-post-title"><a href="{{ path('app_game', { 'slug' : game.slug }) }}">So saying he unbuckled</a></h3>
     <span class="nk-product-rating">
     <span class="nk-product-rating-front" style="width: 80%;">
         <i class="fa fa-star"></i>
@@ -71,11 +71,11 @@
 {% macro print_catalog_games(game) %}
     <div class="col-lg-6">
         <div class="nk-product-cat-2">
-            <a class="nk-product-image" href="store-product.html">
+            <a class="nk-product-image" href="{{ path('app_game', { 'slug' : game.slug }) }}">
                 <img src="{{ asset('uploads/games/' ~ game.image ) }}" alt="{{ game.slug }}">
             </a>
             <div class="nk-product-cont">
-                <h3 class="nk-product-title h5"><a href="">{{ game.title }}</a></h3>
+                <h3 class="nk-product-title h5"><a href="{{ path('app_game', { 'slug' : game.slug }) }}">{{ game.title }}</a></h3>
                 <div class="nk-gap-1"></div>
                 <span class="nk-product-rating">
                         <span class="nk-product-rating-front" style="width: 50%;">

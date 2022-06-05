@@ -6,13 +6,16 @@ use App\Entity\Comment;
 use App\Entity\Game;
 use App\Entity\Message;
 use App\Entity\Post;
+use App\Entity\Review;
 use App\Entity\User;
 use App\Form\CommentType;
 use App\Form\MessageType;
+use App\Form\ReviewType;
 use App\Repository\CommentRepository;
 use App\Repository\GameRepository;
 use App\Repository\MessageRepository;
 use App\Repository\PostRepository;
+use App\Repository\ReviewRepository;
 use App\Repository\TopicRepository;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -113,6 +116,40 @@ class HomeController extends AbstractController
             'games' => $response['games'],
             'recordsByPage' => $response['recordsByPage'],
             'total' => $response['total'],
+        ]);
+    }
+
+    /**
+     * @Route("/game/{slug}", name="_game" , methods={"GET","POST"})
+     * @ParamConverter("game", class="App\Entity\Game")
+     * @throws Exception
+     */
+    public function game(Game $game, Request $request, ReviewRepository $reviewRepository) : Response
+    {
+        $reviewForm = $this->createForm(ReviewType::class,new Review());
+        $reviewForm->handleRequest($request);
+        /** @var User $user */
+        $user = $this->getUser();
+        if($reviewForm->isSubmitted() && $reviewForm->isValid())
+        {
+            /** @var Review $review */
+            $review = $reviewForm->getData();
+            $review->setTitle((new \DateTimeImmutable())->format('Y-m-s H:i:s'));
+            $review->setGame($game);
+            $review->setUser($user);
+
+            $reviewRepository->add($review,true);
+            $this->addFlash(
+                'success',
+                'review added succesfully'
+            );
+            return $this->redirectToRoute('app_game',['slug'=>$game->getSlug()]);
+        }
+
+        return $this->render('game/index.html.twig',[
+            'game' => $game,
+            'reviewForm' => $reviewForm->createView(),
+            'reviews' => $reviewRepository->findAll()
         ]);
     }
 }
