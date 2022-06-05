@@ -67,4 +67,18 @@
             <div class="clearfix"></div>
         </div>
     </div>
+
+{% endblock %}
+{% block scripts %}
+    <script>
+        setTimeout(function(){
+           $(document).ready(function(){
+            $('.nk-form input[type="number"]').on("change",function (){
+                let item = $(this).data('id-item');
+                $('#frm-update-quantity-' + item).submit();
+            });
+        })
+        },200);
+
+    </script>
 {% endblock %}
