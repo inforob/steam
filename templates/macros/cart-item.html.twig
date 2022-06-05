@@ -1,0 +1,36 @@
+{% macro print_cart_item(item,quantity) %}
+<tr>
+    <td class="nk-product-cart-thumb">
+        <a href="{{ path('app_game', { 'slug' : item.slug }) }}" class="nk-image-box-1 nk-post-image">
+            <img src="{{ asset('uploads/games/' ~ item.image) }}" alt="{{ item.title }}" width="115">
+        </a>
+    </td>
+    <td class="nk-product-cart-title">
+        <h5 class="h6">Product:</h5>
+        <div class="nk-gap-1"></div>
+        <h2 class="nk-post-title h4">
+            <a href="{{ path('app_game', { 'slug' : item.slug }) }}">{{ item.title }}</a>
+        </h2>
+    </td>
+    <td class="nk-product-cart-price">
+        <h5 class="h6">Price:</h5>
+        <div class="nk-gap-1"></div>
+        <strong>€ {{ item.price }}</strong>
+    </td>
+    <td class="nk-product-cart-quantity">
+        <h5 class="h6">Quantity:</h5>
+        <div class="nk-gap-1"></div>
+        <div class="nk-form">
+            <form action="{{ path('app_cart_update_items',{'id': item.id }) }}" method="GET" id="frm-update-quantity-{{ item.id }}">
+                <input type="number" name="cart[quantity]" class="form-control" value="{{ quantity }}" min="1" max="21" data-id-item="{{ item.id }}">
+            </form>
+        </div>
+    </td>
+    <td class="nk-product-cart-total">
+        <h5 class="h6">Total:</h5>
+        <div class="nk-gap-1"></div>
+        <strong>€ {{ item.price  * quantity }}</strong>
+    </td>
+    <td class="nk-product-cart-remove"><a href="{{ path('app_cart_del_items', {'idItem': item.id }) }}"><span class="ion-android-close"></span></a></td>
+</tr>
+{% endmacro %}
