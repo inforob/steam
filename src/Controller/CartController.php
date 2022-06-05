@@ -48,7 +48,7 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route("/update/{id}", name="_update_items", methods={"GET"})
+     * @Route("/update/{id}", name="_update_items", methods={"GET","POST"})
      * @ParamConverter("game", class="App\Entity\Game")
      */
     public function update(Request $request, Game $game): Response

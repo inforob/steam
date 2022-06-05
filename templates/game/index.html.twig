@@ -45,12 +45,12 @@
                             </div>
                             <!-- START: Add to Cart -->
                             <div class="nk-gap-2"></div>
-                            <form action="#" class="nk-product-addtocart">
+                            <form action="{{ path('app_cart_update_items', { 'id': game.id }) }}" class="nk-product-addtocart">
                                 <div class="nk-product-price">€ {{ game.price }}</div>
                                 <div class="nk-gap-1"></div>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" value="1" min="1" max="21">
-                                    <button class="nk-btn nk-btn-rounded nk-btn-color-main-1">Add to Cart</button>
+                                    <input type="number" name="cart[quantity]" class="form-control" value="1" min="1" max="21">
+                                    <button class="nk-btn nk-btn-rounded nk-btn-color-main-1" id="add-to-cart" data-id-item="{{ game.id }}">Add to Cart</button>
                                 </div>
                             </form>
                             <div class="nk-gap-3"></div>
