@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Review
 {
+    public const MIN_VALUE_RATING = 1;
+    public const MAX_VALUE_RATING = 5;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
@@ -34,7 +37,7 @@ class Review
     private string $comment;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="reviews")
+     * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="reviews" , )
      */
     private ?Game $game;
 
