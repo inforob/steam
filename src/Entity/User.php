@@ -80,6 +80,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private Collection $message;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="user")
+     */
+    private Collection $reviews;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -87,6 +92,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->setToken(md5(uniqid(rand(), true)));
         $this->setRoles(['ROLE_USER']);
         $this->message = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     public function getId(): string
@@ -292,6 +298,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($message->getUser() === $this) {
                 $message->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): self
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews[] = $review;
+            $review->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): self
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getUser() === $this) {
+                $review->setUser(null);
             }
         }
 

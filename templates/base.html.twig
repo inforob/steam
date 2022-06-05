@@ -9,22 +9,8 @@
     <meta name="author" content="_nK">
     <link rel="icon" type="image/png" href="{{ asset('template/images/favicon.png') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- START: Styles -->
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css">
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="{{ asset('template/assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}">
-    <!-- FontAwesome -->
-    <script defer src="{{ asset('template/assets/vendor/fontawesome-free/js/all.js') }}"></script>
-    <!-- IonIcons -->
-    <link rel="stylesheet" href="{{ asset('template/assets//vendor/ionicons/css/ionicons.min.css') }}">
-    <!-- GoodGames -->
-    <link rel="stylesheet" href="{{ asset('template/assets/css/goodgames.min.css') }}">
-    <!-- Custom Styles -->
-    <link rel="stylesheet" href="{{ asset('template/assets/css/custom.css') }}">
-    <!-- END: Styles -->
-    <!-- jQuery -->
-    <script src="{{ asset('template/assets/vendor/jquery/dist/jquery.min.js') }}"></script>
+    {% include 'css.html.twig' %}
+    {% block css %}{% endblock %}
 </head>
 
 <body>
@@ -114,6 +100,7 @@
 <!-- END: Login Modal -->
 <!-- START: Scripts -->
 {% include 'scripts.html.twig' %}
+{% block scripts %}{% endblock %}
 <!-- END: Scripts -->
 </body>
 </html>

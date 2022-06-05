@@ -2,7 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Category;
 use App\Entity\Comment;
+use App\Entity\Game;
 use App\Entity\Post;
 use App\Entity\Topic;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -36,5 +38,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Topics', 'fas fa-list', Topic::class);
         yield MenuItem::linkToCrud('Posts', 'fas fa-list', Post::class);
         yield MenuItem::linkToCrud('Comment', 'fas fa-list', Comment::class);
+        yield MenuItem::linkToCrud('Category', 'fas fa-list', Category::class);
+        yield MenuItem::linkToCrud('Game', 'fas fa-list', Game::class);
     }
 }

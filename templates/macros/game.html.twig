@@ -67,3 +67,37 @@
     <div class="nk-product-price">€ 23.00</div>
 </div>
 {% endmacro %}
+
+{% macro print_catalog_games(game) %}
+    <div class="col-lg-6">
+        <div class="nk-product-cat-2">
+            <a class="nk-product-image" href="store-product.html">
+                <img src="{{ asset('uploads/games/' ~ game.image ) }}" alt="{{ game.slug }}">
+            </a>
+            <div class="nk-product-cont">
+                <h3 class="nk-product-title h5"><a href="">{{ game.title }}</a></h3>
+                <div class="nk-gap-1"></div>
+                <span class="nk-product-rating">
+                        <span class="nk-product-rating-front" style="width: 50%;">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </span>
+                        <span class="nk-product-rating-back">
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </span>
+                </span>
+                <div class="nk-gap-1"></div> {{ game.description|remove_html_entities|slice(0,200) }} ...<div class="nk-gap-2"></div>
+                <div class="nk-product-price">{{ game.price }} &euro;</div>
+                <div class="nk-gap-1"></div>
+                <a href="#" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">Add to Cart</a>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
