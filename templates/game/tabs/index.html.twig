@@ -13,22 +13,33 @@
         <!-- START: Tab Reviews -->
         <div role="tabpanel" class="tab-pane fade" id="tab-reviews">
             <div class="nk-gap-2"></div>
-            <!-- START: Reply -->
-            <h3 class="h4">Add a Review</h3>
-            <div class="nk-reply">
-                {% include 'game/tabs/_reply.html.twig' %}
-            </div>
-            <!-- END: Reply -->
-            <div class="clearfix"></div>
-            <div class="nk-gap-2"></div>
-            <div class="nk-comments">
-                {% import 'macros/review.html.twig' as r %}
-                {% for review in reviews %}
-                    {{ r.print_review(review) }}
-                {% endfor %}
-            </div>
+            {% if null == app.user %}
+                <span>You must <a href="{{ path('register_user_new') }}"><b>registered</b></a> for write a review for this game.</span>
+            {% else %}
+                <!-- START: Reply -->
+                <h3 class="h4">Add a Review</h3>
+                <div class="nk-reply">
+                    {% include 'game/tabs/_reply.html.twig' %}
+                </div>
+                <!-- END: Reply -->
+                <div class="clearfix"></div>
+                <div class="nk-gap-2"></div>
+                <div class="nk-comments">
+                    {% import 'macros/review.html.twig' as r %}
+                    {% for review in reviews %}
+                        {{ r.print_review(review) }}
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
         <!-- END: Tab Reviews -->
     </div>
 </div>
 <!-- END: Tabs -->
+<script>
+    setTimeout(function(){
+        $('.nk-rating input[type="radio"]').on('change',function() {
+            $('#review_rating').val($(this).val());
+        });
+    }, 2000);
+</script>
