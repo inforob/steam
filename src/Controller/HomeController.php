@@ -135,6 +135,7 @@ class HomeController extends AbstractController
             /** @var Review $review */
             $review = $reviewForm->getData();
             $review->setTitle((new \DateTimeImmutable())->format('Y-m-s H:i:s'));
+            $game->setRating($this->calculateRating($game,$review->getRating()));
             $review->setGame($game);
             $review->setUser($user);
 
@@ -151,5 +152,25 @@ class HomeController extends AbstractController
             'reviewForm' => $reviewForm->createView(),
             'reviews' => $reviewRepository->findAll()
         ]);
+    }
+
+    private function calculateRating(Game $game, $ratingOld) : int
+    {
+        $ratingUpdated = Review::MIN_VALUE_RATING;
+        if(!$game->getReviews()->isEmpty()){
+
+            $ratings = array_map(function($review){
+                /** @var Review $review */
+                return $review->getRating();
+            }, $game->getReviews()->toArray());
+
+            $ratings[] = $ratingOld;
+
+            return intval(array_sum($ratings) / sizeof($ratings));
+
+        }
+
+        return $ratingOld;
+
     }
 }
