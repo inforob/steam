@@ -41,7 +41,7 @@
                                 <option value="pc">PC</option>
                             </select>
                             <div class="nk-product-description">
-                                <p>{{ game.description|raw }}</p>
+                                <p>{{ game.description|remove_html_entities|slice(0,450) }}</p>
                             </div>
                             <!-- START: Add to Cart -->
                             <div class="nk-gap-2"></div>
