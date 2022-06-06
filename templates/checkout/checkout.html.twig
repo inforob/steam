@@ -63,7 +63,11 @@
                 <!-- END: Order Products -->
                 <div class="nk-gap-2"></div>
             </div>
+                {% if is_granted('ROLE_USER') %}
                 <button class="nk-btn nk-btn-rounded nk-btn-color-main-1">Place Order</button>
+                {% else %}
+                    you must sig in for buy a item!! . Log in <b><a href="{{ path('app_login') }}">here </a></b>
+                {% endif %}
             </form>
         </div>
         <div class="nk-gap-2"></div>

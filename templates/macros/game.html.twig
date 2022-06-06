@@ -72,7 +72,7 @@
     <div class="col-lg-6">
         <div class="nk-product-cat-2">
             <a class="nk-product-image" href="{{ path('app_game', { 'slug' : game.slug }) }}">
-                <img src="{{ asset('uploads/games/' ~ game.image ) }}" alt="{{ game.slug }}">
+                <img src="{{ asset('uploads/games/' ~ game.image ) }}" alt="{{ game.slug }}" style="width: 245px;height: 350px">
             </a>
             <div class="nk-product-cont">
                 <h3 class="nk-product-title h5"><a href="{{ path('app_game', { 'slug' : game.slug }) }}">{{ game.title }}</a></h3>
