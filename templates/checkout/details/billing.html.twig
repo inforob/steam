@@ -1,0 +1,49 @@
+    <div class="row vertical-gap">
+        <div class="col-lg-6">
+            <div class="row vertical-gap">
+                <div class="col-sm-6">
+                    <label for="fname">First Name <span class="text-main-1">*</span>:</label>
+                    <input type="text" class="form-control required" name="fname" id="fname" value="{{ app.user.name ?? "" }}">
+                </div>
+                <div class="col-sm-6">
+                    <label for="lname">Last Name <span class="text-main-1">*</span>:</label>
+                    <input type="text" class="form-control required" name="lname" id="lname" value="{{ app.user.lastname ?? "" }}">
+                </div>
+            </div>
+            <div class="nk-gap-1"></div>
+            <label for="company">Company Name:</label>
+            <input type="text" class="form-control" name="company" id="company">
+            <div class="nk-gap-1"></div>
+            <div class="row vertical-gap">
+                <div class="col-sm-6">
+                    <label for="email">Email Address <span class="text-main-1">*</span>:</label>
+                    <input type="email" class="form-control required" name="email" id="email" value="{{ app.user.email ?? "" }}">
+                </div>
+                <div class="col-sm-6">
+                    <label for="phone">Phone <span class="text-main-1">*</span>:</label>
+                    <input type="tel" class="form-control required" name="phone" id="phone" value="{{ app.user.phone ?? "" }}">
+                </div>
+            </div>
+            <div class="nk-gap-1"></div>
+
+        </div>
+        <div class="col-lg-6">
+            <label for="address">Address <span class="text-main-1">*</span>:</label>
+            <input type="text" class="form-control required" name="address" id="address" value="{{ app.user.address.address ?? "" }}">
+            <div class="nk-gap-1"></div>
+            <label for="city">Town / City <span class="text-main-1">*</span>:</label>
+            <input type="text" class="form-control required" name="city" id="city" value="{{ app.user.address.state ?? "" }}">
+            <div class="nk-gap-1"></div>
+            <div class="row vertical-gap">
+                <div class="col-sm-6">
+                    <label for="state">State / Country <span class="text-main-1">*</span>:</label>
+                    <input type="text" class="form-control required" name="state" id="state" value="{{ app.user.address.country ?? "" }}">
+                </div>
+                <div class="col-sm-6">
+                    <label for="zip">Postcode / ZIP <span class="text-main-1">*</span>:</label>
+                    <input type="tel" class="form-control required" name="zip" id="zip" value="{{ app.user.address.cp ?? "" }}">
+                </div>
+            </div>
+            <div class="nk-gap-1"></div>
+        </div>
+    </div>

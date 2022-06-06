@@ -34,3 +34,9 @@
     <td class="nk-product-cart-remove"><a href="{{ path('app_cart_del_items', {'idItem': item.id }) }}"><span class="ion-android-close"></span></a></td>
 </tr>
 {% endmacro %}
+{% macro print_checkout_items_tr(game,quantity) %}
+<tr>
+    <td class="nk-product-cart-title"> {{ game.title }} &times; {{ quantity }} </td>
+    <td class="nk-product-cart-total"> € {{ game.price * quantity }} </td>
+</tr>
+{% endmacro %}

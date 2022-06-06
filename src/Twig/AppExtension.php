@@ -3,15 +3,13 @@
 namespace App\Twig;
 
 use App\Entity\Game;
+use App\Entity\Order;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension
 {
-    private const DECIMALS = 2;
-    private const IVA = 21;
-
     public function getFilters(): array
     {
         return [
@@ -36,21 +34,22 @@ class AppExtension extends AbstractExtension
         return strip_tags($value);
     }
 
-    public function totalsItemsCart(array $itemsCart) : string
+    public function totalsItemsCart(?array $itemsCart) : string
     {
         $sub_total = 0.00;
-
-        foreach ($itemsCart as $itemId => $item) {
-            /** @var Game $game */
-            $dish = $item['game'];
-            $sub_total += $dish->getPrice() * intval($item['quantity']);
+        if(!empty($itemsCart)){
+            foreach ($itemsCart as $itemId => $item) {
+                /** @var Game $game */
+                $game = $item['game'];
+                $sub_total += $game->getPrice() * intval($item['quantity']);
+            }
         }
 
-        return number_format($sub_total,self::DECIMALS);
+        return number_format($sub_total,Order::DECIMALS);
     }
 
     public function applyIva($totalWithoutIva) : string
     {
-        return number_format((self::IVA * $totalWithoutIva / 100) + $totalWithoutIva,self::DECIMALS);
+        return number_format((Order::IVA * $totalWithoutIva / 100) + $totalWithoutIva,Order::DECIMALS);
     }
 }
