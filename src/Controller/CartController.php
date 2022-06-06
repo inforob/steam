@@ -78,7 +78,7 @@ class CartController extends AbstractController
         $items = $this->session->get('cartItems');
 
         if(!isset($items[$idItem])){
-            throw new Exception('the dish not exist or has been removed from session');
+            throw new Exception('the game not exist or has been removed from session');
         }
 
         unset($items[$idItem]);

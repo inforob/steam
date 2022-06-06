@@ -2,27 +2,68 @@
 
 namespace App\Controller;
 
+use App\Entity\Game;
+use App\Entity\LineItem;
+use App\Entity\LineItems;
+use App\Entity\Order;
 use App\Entity\User;
+use App\Repository\GameRepository;
+use App\Repository\LineItemRepository;
+use App\Repository\OrderRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CheckoutController extends AbstractController
 {
+    private SessionInterface $session;
+
+    public function __construct(SessionInterface $session){
+
+        $this->session = $session;
+    }
     /**
      * @Route("/checkout", name="app_checkout")
      */
-    public function checkout(Request $request,UserRepository $userRepository): Response
+    public function checkout(
+        Request $request,
+        UserRepository $userRepository,
+        OrderRepository $orderRepository,
+        GameRepository $gameRepository
+    ): Response
     {
         if('POST' === $request->getMethod()){
+
             $dataPost = $request->request->all();
 
             $userUpdated = $this->updateDataUser($dataPost);
 
             $userRepository->add($userUpdated,true);
-            // TODO persist ORDER
+            $itemsCart = $this->session->get('cartItems');
+
+            $order = new Order();
+            $order->setUser($userUpdated);
+            $order->setStatus(Order::STATUS_PENDING);
+
+            $sub_total = 0.00;
+            foreach ($itemsCart as $itemId => $item) {
+                /** @var Game $game */
+                $game = $gameRepository->find($itemId);
+                $line = new LineItems();
+                $line->setQuantity($item['quantity']);
+                $line->setGame($game);
+                $order->addItem($line);
+
+                $sub_total += $game->getPrice() * intval($item['quantity']);
+            }
+
+            $amount = number_format((Order::IVA * $sub_total / 100) + $sub_total,Order::DECIMALS);
+            $order->setAmount($amount);
+            $orderRepository->add($order,true);
+
             // TODO send email with events
             $this->addFlash(
                 'success',
@@ -66,4 +107,6 @@ class CheckoutController extends AbstractController
         return $user;
 
     }
+
+
 }
