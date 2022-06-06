@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Subscriber\User;
+namespace App\Subscriber;
 
 use App\Events\UserEvent;
 use App\Services\Mail\MailerService;
@@ -8,7 +8,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
-class EventsSubscriber implements EventSubscriberInterface
+class UserEventsSubscriber implements EventSubscriberInterface
 {
     private LoggerInterface $logger;
 
@@ -31,7 +31,9 @@ class EventsSubscriber implements EventSubscriberInterface
     public function onRegistered(UserEvent $event)
     {
         try {
-            $this->mailerService->sendEmail($event->getUser(),'emails/user/registration/signup.html.twig');
+            $template = 'emails/user/registration/signup.html.twig';
+            $subject = "Account registered successfully";
+            $this->mailerService->sendEmail($event->getUser(),$template,$subject);
         } catch (TransportExceptionInterface $e) {
             $this->logger->error($e->getMessage());
         }
@@ -42,7 +44,9 @@ class EventsSubscriber implements EventSubscriberInterface
     public function onResetPassword(UserEvent $event)
     {
         try {
-            $this->mailerService->sendEmail($event->getUser(), 'emails/user/reset/reset.html.twig');
+            $template = 'emails/user/reset/reset.html.twig';
+            $subject = "Account reset successfully";
+            $this->mailerService->sendEmail($event->getUser(),$template,$subject);
         } catch (TransportExceptionInterface $e) {
             $this->logger->error($e->getMessage());
         }

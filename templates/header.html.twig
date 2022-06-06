@@ -37,7 +37,11 @@
                     <li>
                         <span class="nk-cart-toggle">
                             <span class="fa fa-shopping-cart"></span>
-                            <span class="nk-badge">27</span>
+                                {% if app.session.get('cartItems') is not empty %}
+                                <span class="nk-badge">
+                                {{ app.session.get('cartItems')|length }}
+                                </span>
+                                {% endif %}
                         </span>
                         <div class="nk-cart-dropdown">
                             <div class="nk-widget-post">
@@ -88,7 +92,7 @@
                         <a href="{{ path('app_catalog') }}"> Catalog </a>
                     </li>
                     <li>
-                        <a href=""> Cart </a>
+                        <a href="{{ path('app_cart_items') }}"> Cart </a>
                     </li>
                 </ul>
                 <ul class="nk-nav nk-nav-right nk-nav-icons">
