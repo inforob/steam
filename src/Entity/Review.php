@@ -12,6 +12,8 @@ class Review
 {
     public const MIN_VALUE_RATING = 1;
     public const MAX_VALUE_RATING = 5;
+    public const PUBLISHED = 1;
+    public const NOT_PUBLISHED = 0;
 
     /**
      * @ORM\Id
@@ -45,6 +47,16 @@ class Review
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reviews")
      */
     private ?User $user;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool$published;
+
+    public function __construct()
+    {
+        $this->setPublished(self::NOT_PUBLISHED);
+    }
 
     public function getId(): string
     {
@@ -107,6 +119,18 @@ class Review
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function isPublished(): ?bool
+    {
+        return $this->published;
+    }
+
+    public function setPublished(bool $published): self
+    {
+        $this->published = $published;
 
         return $this;
     }
