@@ -7,11 +7,14 @@ use App\Entity\LineItem;
 use App\Entity\LineItems;
 use App\Entity\Order;
 use App\Entity\User;
+use App\Events\OrderEvent;
+use App\Events\UserEvent;
 use App\Repository\GameRepository;
 use App\Repository\LineItemRepository;
 use App\Repository\OrderRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -20,10 +23,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class CheckoutController extends AbstractController
 {
     private SessionInterface $session;
+    private EventDispatcherInterface $dispatcher;
 
-    public function __construct(SessionInterface $session){
+    public function __construct(SessionInterface $session,EventDispatcherInterface $dispatcher){
 
         $this->session = $session;
+        $this->dispatcher = $dispatcher;
     }
     /**
      * @Route("/checkout", name="app_checkout")
@@ -64,11 +69,13 @@ class CheckoutController extends AbstractController
             $order->setAmount($amount);
             $orderRepository->add($order,true);
 
-            // TODO send email with events
+            $this->dispatcher->dispatch(new OrderEvent($order,$userUpdated),OrderEvent::REGISTER_ORDER_ACTION);
+
             $this->addFlash(
                 'success',
                 'Order registered successfully, you must receive an email with your order!, Thanks'
             );
+            $this->session->set('cartItems', []);
             return $this->redirectToRoute('app_home');
         }
 

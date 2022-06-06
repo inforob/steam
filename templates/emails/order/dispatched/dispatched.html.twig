@@ -1,0 +1,15 @@
+<h1>your order has been registered {{ user.username }}</h1>
+<p>
+ you can check out the order :
+</p>
+<ul>
+    <li>
+        Order Created : {{ context.createdAt|date }}
+    </li>
+    <li>
+        Order Amount : {{ context.amount }}
+    </li>
+    <li>
+        Order Status : {{ context.status }}
+    </li>
+</ul>

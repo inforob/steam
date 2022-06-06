@@ -30,7 +30,7 @@ class LineItems
     private Order $orderItem;
 
     /**
-     * @ORM\OneToOne(targetEntity=Game::class, cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=Game::class, cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private Game $game;

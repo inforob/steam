@@ -20,18 +20,19 @@ class MailerService{
     /**
      * @throws TransportExceptionInterface
      */
-    public function sendEmail(User $user, string $template) : void
+    public function sendEmail(User $user, string $template, string $subject, $context = null) : void
     {
         $email = (new TemplatedEmail())
             ->from('admin@steam.net')
             ->to(new Address($user->getEmail()))
-            ->subject('Your account has been created!')
+            ->subject($subject)
             // path of the Twig template to render
             ->htmlTemplate($template)
 
             // pass variables (name => value) to the template
             ->context([
                 'user' => $user,
+                'context' => $context
             ]);
 
         $this->mailer->send($email);
