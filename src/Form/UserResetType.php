@@ -15,8 +15,8 @@ class UserResetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', TextType::class, [
-                'attr' => [ 'class' => 'form-control' ],
+            ->add('emailReset', TextType::class, [
+                'attr' => [ 'class' => 'form-control'],
                 'constraints' => [
                     new NotBlank(),
                 ],
@@ -28,7 +28,7 @@ class UserResetType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => null,
         ]);
     }
 }
