@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Comment;
 use App\Entity\Game;
 use App\Entity\Post;
+use App\Entity\Review;
 use App\Entity\Topic;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -40,5 +41,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Comment', 'fas fa-list', Comment::class);
         yield MenuItem::linkToCrud('Category', 'fas fa-list', Category::class);
         yield MenuItem::linkToCrud('Game', 'fas fa-list', Game::class);
+        yield MenuItem::linkToCrud('Review', 'fas fa', Review::class);
     }
 }

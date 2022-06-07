@@ -34,8 +34,11 @@ class ResetController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var User $user*/
-            $user = $userRepository->findOneBy(['email'=>$form->getData()->getUserIdentifier()]);
+
+            $email = $form->getData()['emailReset'];
+
+            /** @var User $user */
+            $user = $userRepository->findOneBy(['email'=>$email]);
             if(null == $user){
                 $this->addFlash(
                     'fail',

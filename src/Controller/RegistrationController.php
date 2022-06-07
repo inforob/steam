@@ -23,18 +23,15 @@ class RegistrationController extends AbstractController
 {
     private EventDispatcherInterface $dispatcher;
 
-    private EntityManagerInterface $entityManager;
-
-    public function __construct(EventDispatcherInterface $dispatcher,EntityManagerInterface $entityManager)
+    public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher=$dispatcher;
-        $this->entityManager = $entityManager;
     }
 
     /**
      * @Route("/user/new", name="_user_new", methods={"GET", "POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request,UserRepository $userRepository): Response
     {
         $user = new User();
         $form = $this->createForm(UserRegistrationType::class, $user);
@@ -43,8 +40,7 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             try {
-                $this->entityManager->persist($user);
-                $this->entityManager->flush();
+                $userRepository->add($user,true);
 
                 $this->dispatcher->dispatch(new UserEvent($user),UserEvent::REGISTER_ACTION);
                 $this->addFlash(

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Address;
 use App\Entity\Game;
 use App\Entity\LineItem;
 use App\Entity\LineItems;
@@ -40,6 +41,11 @@ class CheckoutController extends AbstractController
         GameRepository $gameRepository
     ): Response
     {
+        $itemsCart = $this->session->get('cartItems');
+        if(empty($itemsCart)){
+            return $this->redirectToRoute('app_cart_items');
+        }
+
         if('POST' === $request->getMethod()){
 
             $dataPost = $request->request->all();
@@ -47,7 +53,7 @@ class CheckoutController extends AbstractController
             $userUpdated = $this->updateDataUser($dataPost);
 
             $userRepository->add($userUpdated,true);
-            $itemsCart = $this->session->get('cartItems');
+
 
             $order = new Order();
             $order->setUser($userUpdated);
@@ -98,16 +104,15 @@ class CheckoutController extends AbstractController
         if(null === $user->getPhone() ){
             $user->setPhone($dataPost['phone'] ?? "N/A");
         }
-        if(null === $user->getAddress()->getAddress() ){
+        if(null === $user->getAddress() ){
+            $user->setAddress((new Address())->setAddress($dataPost['address'] ?? "N/A"));
+            $user->setAddress((new Address())->setState($dataPost['state'] ?? "N/A"));
+            $user->setAddress((new Address())->setCountry($dataPost['country'] ?? "N/A"));
+            $user->setAddress((new Address())->setCp($dataPost['zip'] ?? "N/A"));
+        } else {
             $user->getAddress()->setAddress($dataPost['address'] ?? "N/A");
-        }
-        if(null === $user->getAddress()->getState() ){
             $user->getAddress()->setState($dataPost['state'] ?? "N/A");
-        }
-        if(null === $user->getAddress()->getCountry() ){
             $user->getAddress()->setCountry($dataPost['country'] ?? "N/A");
-        }
-        if(null === $user->getAddress()->getCp() ){
             $user->getAddress()->setCp($dataPost['zip'] ?? "N/A");
         }
 

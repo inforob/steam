@@ -40,3 +40,17 @@
     <td class="nk-product-cart-total"> € {{ game.price * quantity }} </td>
 </tr>
 {% endmacro %}
+
+{% macro print_top_cart_items(item,quantity) %}
+<div class="nk-widget-post">
+    <a href="{{ path('app_game',{ 'slug': item.slug }) }}" class="nk-post-image">
+        <img src="{{ asset('uploads/games/' ~ item.image) }}" alt="{{ item.title }}">
+    </a>
+    <h3 class="nk-post-title">
+        <a href="{{path('app_cart_del_items',{'idItem':item.id})}}" class="nk-cart-remove-item"><span class="ion-android-close"></span></a>
+        <a href="{{ path('app_game',{ 'slug': item.slug }) }}">{{ item.title }}</a>
+    </h3>
+    <div class="nk-gap-1"></div>
+    <div class="nk-product-price">€ {{ item.price }}</div>
+</div>
+{% endmacro %}

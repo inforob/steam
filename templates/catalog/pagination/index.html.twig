@@ -1,5 +1,5 @@
 <!-- START: Pagination -->
-{% set numPages = (total/recordsByPage)|round %}
+{% set numPages = (total/recordsByPage)|round + 1 %}
 {% set back = (app.request.get('page') - 1 < 0) ? 1 : app.request.get('page') - 1 %}
 {% set next = (app.request.get('page') + 1 > numPages) ? numPages : app.request.get('page') + 1 %}
 
