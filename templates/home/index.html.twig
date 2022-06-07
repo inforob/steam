@@ -123,9 +123,9 @@
             <aside class="nk-sidebar nk-sidebar-right nk-sidebar-sticky">
                 <div class="nk-widget">
                     <div class="nk-widget-content">
-                        <form action="#" class="nk-form nk-form-style-1" novalidate="novalidate">
+                        <form action="{{ path('app_catalog', { 'page': 1 } ) }}" class="nk-form nk-form-style-1" novalidate="novalidate" method="GET">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Type something...">
+                                <input type="text" class="form-control" placeholder="Type something..." name="filter[description]">
                                 <button class="nk-btn nk-btn-color-main-1"><span class="ion-search"></span></button>
                             </div>
                         </form>
