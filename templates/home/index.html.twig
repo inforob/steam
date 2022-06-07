@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 {% import 'macros/post.html.twig' as p %}
+{% import 'macros/game.html.twig' as g %}
 
 {% block categories %}
     <!-- START: Categories -->
@@ -108,14 +109,14 @@
             </div>
             <!-- END: Tabbed News -->
 
-            <!-- START: Best Selling -->
-            <div class="nk-gap-3"></div>
-            <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Best</span> Selling</span></h3>
-            <div class="nk-gap"></div>
-            <div class="row vertical-gap">
-                // TODO
-            </div>
-            <!-- END: Best Selling -->
+{#            <!-- START: Best Selling -->#}
+{#            <div class="nk-gap-3"></div>#}
+{#            <h3 class="nk-decorated-h-2"><span><span class="text-main-1">Best</span> Selling</span></h3>#}
+{#            <div class="nk-gap"></div>#}
+{#            <div class="row vertical-gap">#}
+{#
+{#            </div>
+{#            <!-- END: Best Selling -->#}
         </div>
         <div class="col-lg-4">
 
@@ -134,15 +135,18 @@
                 <div class="nk-widget nk-widget-highlighted">
                     <h4 class="nk-widget-title"><span><span class="text-main-1">Top 3</span> Recent</span></h4>
                     <div class="nk-widget-content">
-                        // TODO
+                        {% for game in topCurrent %}
+                            {{ g.print_recents_games(game) }}
+                        {% endfor %}
                     </div>
                 </div>
-
 
                 <div class="nk-widget nk-widget-highlighted">
                     <h4 class="nk-widget-title"><span><span class="text-main-1">Most</span> Popular</span></h4>
                     <div class="nk-widget-content">
-                        // TODO
+                        {% for game in topPopular %}
+                            {{ g.print_most_popular(game) }}
+                        {% endfor %}
                     </div>
                 </div>
             </aside>
