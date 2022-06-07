@@ -43,18 +43,20 @@
                                 </span>
                                 {% endif %}
                         </span>
+                        {% if app.session.get('cartItems') is not empty %}
                         <div class="nk-cart-dropdown">
                             {% import 'macros/cart-item.html.twig' as c %}
-                            {% if app.session.get('cartItems') is not empty %}
+
                             {% for item in app.session.get('cartItems') %}
                                 {{ c.print_top_cart_items(item['game'],item['quantity']) }}
                             {% endfor %}
-                            {% endif %}
+
                             <div class="nk-gap-2"></div>
                             <div class="text-center">
                                 <a href="{{ path('app_checkout') }}" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">Proceed to Checkout</a>
                             </div>
                         </div>
+                        {% endif %}
                     </li>
                 </ul>
             </div>
