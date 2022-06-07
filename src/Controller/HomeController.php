@@ -37,7 +37,8 @@ class HomeController extends AbstractController
         Request $request,
         PostRepository $postRepository,
         TopicRepository $topicRepository,
-        MessageRepository $messageRepository
+        MessageRepository $messageRepository,
+        GameRepository $gameRepository
     ): Response
     {
         $contactForm = $this->createForm(MessageType::class, new Message());
@@ -65,6 +66,16 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig',[
             'posts' => $postRepository->findBy(['published'=>Post::PUBLISHED]),
             'topics' => $topicRepository->findAll(),
+            'topCurrent' => $gameRepository->findBy(
+                ['published' => Game::PUBLISHED],
+                ['createdAt' => 'DESC'],
+                3,
+                0),
+            'topPopular' => $gameRepository->findBy(
+                ['published' => Game::PUBLISHED],
+                ['rating' => 'DESC'],
+                4,
+                0),
             'formContact' => $contactForm->createView()
         ]);
     }

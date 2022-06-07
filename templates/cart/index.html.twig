@@ -45,7 +45,9 @@
                 </div>
             </div>
             <div class="nk-gap-2"></div>
+            {% if app.session.get('cartItems') is not empty %}
             <a class="nk-btn nk-btn-rounded nk-btn-color-main-1 float-right" href="{{ path('app_checkout') }}">Proceed to Checkout</a>
+            {% endif %}
             <div class="clearfix"></div>
         </div>
     </div>

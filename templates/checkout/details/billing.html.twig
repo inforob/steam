@@ -17,7 +17,7 @@
             <div class="row vertical-gap">
                 <div class="col-sm-6">
                     <label for="email">Email Address <span class="text-main-1">*</span>:</label>
-                    <input type="email" class="form-control required" name="email" id="email" value="{{ app.user.email ?? "" }}">
+                    <input type="email" class="form-control required" name="email" id="email" value="{{ app.user.email ?? "" }}" style="pointer-events: none;">
                 </div>
                 <div class="col-sm-6">
                     <label for="phone">Phone <span class="text-main-1">*</span>:</label>
@@ -31,13 +31,13 @@
             <label for="address">Address <span class="text-main-1">*</span>:</label>
             <input type="text" class="form-control required" name="address" id="address" value="{{ app.user.address.address ?? "" }}">
             <div class="nk-gap-1"></div>
-            <label for="city">Town / City <span class="text-main-1">*</span>:</label>
-            <input type="text" class="form-control required" name="city" id="city" value="{{ app.user.address.state ?? "" }}">
+            <label for="city">State <span class="text-main-1">*</span>:</label>
+            <input type="text" class="form-control required" name="state" id="city" value="{{ app.user.address.state ?? "" }}">
             <div class="nk-gap-1"></div>
             <div class="row vertical-gap">
                 <div class="col-sm-6">
-                    <label for="state">State / Country <span class="text-main-1">*</span>:</label>
-                    <input type="text" class="form-control required" name="state" id="state" value="{{ app.user.address.country ?? "" }}">
+                    <label for="state"> Country <span class="text-main-1">*</span>:</label>
+                    <input type="text" class="form-control required" name="country" id="state" value="{{ app.user.address.country ?? "" }}">
                 </div>
                 <div class="col-sm-6">
                     <label for="zip">Postcode / ZIP <span class="text-main-1">*</span>:</label>

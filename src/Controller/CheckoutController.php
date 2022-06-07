@@ -41,6 +41,11 @@ class CheckoutController extends AbstractController
         GameRepository $gameRepository
     ): Response
     {
+        $itemsCart = $this->session->get('cartItems');
+        if(empty($itemsCart)){
+            return $this->redirectToRoute('app_cart_items');
+        }
+
         if('POST' === $request->getMethod()){
 
             $dataPost = $request->request->all();
@@ -48,7 +53,7 @@ class CheckoutController extends AbstractController
             $userUpdated = $this->updateDataUser($dataPost);
 
             $userRepository->add($userUpdated,true);
-            $itemsCart = $this->session->get('cartItems');
+
 
             $order = new Order();
             $order->setUser($userUpdated);
