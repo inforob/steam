@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Category;
 use App\Entity\Comment;
 use App\Entity\Game;
+use App\Entity\Message;
 use App\Entity\Post;
 use App\Entity\Review;
 use App\Entity\Topic;
@@ -42,5 +43,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Category', 'fas fa-list', Category::class);
         yield MenuItem::linkToCrud('Game', 'fas fa-list', Game::class);
         yield MenuItem::linkToCrud('Review', 'fas fa-list', Review::class);
+        yield MenuItem::linkToCrud('Contact', 'fas fa-list', Message::class);
     }
 }
